@@ -1,8 +1,6 @@
 import string
-import nltk
 from nltk.corpus import stopwords
 import re
-#nltk.download('stopwords')
 
 import pandas as pd
 
@@ -22,13 +20,9 @@ def dropFeature(dataframe, column):
     return dataframe
 
 def clean_text(text):
-
     text = remove_tag_and_links(text)
-    print("1", text)
     text = removePunctuation(text)
-    print("2", text)
     text = removeStopwords(text)
-    print("3", text)
     return text
 
 def removePunctuation(text):
@@ -40,7 +34,7 @@ def removePunctuation(text):
     return text
 
 def remove_tag_and_links(text):
-    link_tag = re.compile(r'http\S+|www.\S+|\b@\w+\b')
+    link_tag = re.compile(r'(http\S+)|(www.\S+)|(@\w+)')
     text = re.sub(link_tag, '', text)
     return text
 
@@ -50,15 +44,4 @@ def removeStopwords(text):
     words = text.split()
     clean_text = " ".join([word for word in words if word.lower() not in stop])
     return clean_text
-    # for word in stop:
-    #     table = str.maketrans("", "", word)
-    #     text = text.str.translate(table)
-    #     print(text)
-
-
-# def removeStopwords(text):
-#     stop = stopwords.words('english')
-#     table = str.maketrans("", "")
-#     text = text.translate(table, stop)
-
 
